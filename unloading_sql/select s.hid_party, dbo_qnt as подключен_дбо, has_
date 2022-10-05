@@ -1,0 +1,9 @@
+select s.hid_party, dbo_qnt as подключен_дбо, has_dbo_ind_30 as подключен_дбо_30дней, 
+CASE WHEN (AKB.hid_party is not null and AKB.C12=1) THEN 1
+ELSE 0
+END AKB_FLAG
+FROM база_данных s
+LEFT JOIN база_данных_2 AKB
+ON s.hid_party = AKB.hid_party
+AND (AKB.Report_dt >= to_date('01.01.2022', 'dd.mm.yyyy'))
+WHERE OPERATION_START_DDTM +0/24 >= to_date('01.06.2022', 'dd.mm.yyyy')
